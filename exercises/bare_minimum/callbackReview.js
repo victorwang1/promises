@@ -9,11 +9,10 @@ var request = require('request');
 // This function should retrieve the first line of the file at `filePath`
 var pluckFirstLineFromFile = function (filePath, callback) {
   fs.readFile(filePath, 'utf8', function(err, content) {
-    console.log('reading form file ' + filePath);
     if (err) {
       callback(err);
     } else {
-      var firstLine = content.split('\n')[0].trim();
+      var firstLine = content.split('\n')[0];
       callback(err, firstLine);
     }
   })

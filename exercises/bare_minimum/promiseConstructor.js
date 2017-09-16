@@ -7,6 +7,7 @@
 var Promise = require('bluebird');
 var fs = require('fs');
 var request = require('request');
+var pluckFirstLineFromFile = require('./callbackReview.js').pluckFirstLineFromFile;
 
 
 // This function should retrieve the first line of the file at `filePath`
