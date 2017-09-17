@@ -12,14 +12,13 @@ var fs = Promise.promisifyAll(require('fs'));
 var pluckFirstLineFromFileAsync = require('../bare_minimum/promiseConstructor.js').pluckFirstLineFromFileAsync;
 
 var combineFirstLineOfManyFiles = function(filePaths, writePath) {
-  var lines = filePaths.map((filePath) => {
-    return pluckFirstLineFromFileAsync(filePath);
-  })
+  var lines = filePaths.map(filePath => pluckFirstLineFromFileAsync(filePath))
   return Promise.all(lines)
                 .then(function(lines) {
                   var file = lines.reduce((output, line) => {
-                    return output + line + '\n';
-                  }, '');
+                    output.push(line);
+                    return output;
+                  }, []).join('\n');
                   return fs.writeFileAsync(writePath, file);
                 })
                 .catch(function(err) {
